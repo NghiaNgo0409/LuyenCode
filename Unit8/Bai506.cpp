@@ -148,7 +148,43 @@ int Compare2PhanSo(PhanSo ps1, PhanSo ps2)
         return 0;
     }
 }
+PhanSo operator+ (PhanSo ps1, PhanSo ps2)
+{
+    PhanSo sum;
+    sum.tu = ps1.tu * ps2.mau + ps2.tu * ps1.mau;
+    sum.mau = ps1.mau * ps2.mau;
+    sum = RutGonPhanSo(sum);
+    return sum;
+}
+PhanSo operator- (PhanSo ps1, PhanSo ps2)
+{
+    PhanSo sum;
+    sum.tu = ps1.tu * ps2.mau - ps2.tu * ps1.mau;
+    sum.mau = ps1.mau * ps2.mau;
+    sum = RutGonPhanSo(sum);
+    return sum;
+}
+PhanSo operator* (PhanSo ps1, PhanSo ps2)
+{
+    PhanSo sum;
+    sum.tu = ps1.tu * ps2.tu;
+    sum.mau = ps1.mau * ps2.mau;
+    sum = RutGonPhanSo(sum);
+    return sum;
+}
+PhanSo operator/ (PhanSo ps1, PhanSo ps2)
+{
+    PhanSo sum;
+    sum.tu = ps1.tu * ps2.mau;
+    sum.mau = ps1.mau * ps2.tu;
+    sum = RutGonPhanSo(sum);
+    return sum;
+}
 int main()
 {
-    
+    PhanSo ps1, ps2;
+    Input(ps1); Input(ps2);
+    PhanSo sum;
+    sum = ps1 + ps2;
+    Output(sum);
 }
