@@ -111,8 +111,8 @@ class Pixel : public Color, public Point
     {
         cout << "Nhap x: "; fflush(stdin); is >> obj.x;
         cout << "Nhap y: "; fflush(stdin); is >> obj.y;
-        cout << "Nhap ten mau: "; fflush(stdin); getline(is, obj.idColor);
-        cout << "Nhap ma mau: "; fflush(stdin); getline(is, obj.nameColor);
+        cout << "Nhap ten mau: "; fflush(stdin); is >> obj.nameColor;
+        cout << "Nhap ma mau: "; fflush(stdin); is >> obj.idColor;
         return is;
     }
     friend ostream &operator<< (ostream &os, Pixel obj)
