@@ -32,12 +32,6 @@ bool isSquareNumber(int n)
         return false;
     }
 }
-void Swap(int& a, int& b)
-{
-    int temp = a;
-    a = b;
-    b = temp;
-}
 void Input(int* a, int n)
 {
     for(int i = 0; i < n; i++)
