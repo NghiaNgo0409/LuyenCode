@@ -1,30 +1,10 @@
 #include <iostream>
 #include <math.h>
 using namespace std;
-void Input(int** a, int r, int c)
-{
-    for(int i = 0; i < r; i++)
-    {
-        for(int j = 0; j < c; j++)
-        {
-            cin >> a[i][j];
-        }
-    }
-}
-void Output(int** a, int r, int c)
-{
-    for(int i = 0; i < r; i++)
-    {
-        for(int j = 0; j < c; j++)
-        {
-            cout << a[i][j] << " ";
-        }
-        cout << endl;
-    }
-}
+#define MAX -99999
 bool isPrime(int n)
 {
-    if(n < 2)
+    if (n < 2)
     {
         return false;
     }
@@ -47,86 +27,10 @@ bool isSquareNumber(int n)
     {
         return true;
     }
-    else
+    else 
     {
         return false;
     }
-}
-int FindFirstPrimeInRow(int* a, int c)
-{
-    for(int i = 0; i < c; i++)
-    {
-        if(isPrime(a[i]))
-        {
-            return a[i];
-        }
-    }
-}
-int FindFirstSquareNumberInRow(int* a, int c)
-{
-    for(int i = 0; i < c; i++)
-    {
-        if(isSquareNumber(a[i]))
-        {
-            return a[i];
-        }
-    }
-}
-int FindPosMaxPrimeInRow(int* a, int c)
-{
-    int max = FindFirstPrimeInRow(a, c);
-    int pos = 0;
-    bool exist = false;
-    for(int i = 0; i < c; i++)
-    {
-        if(isPrime(a[i]) && a[i] >= max)
-        {
-            max = a[i];
-            pos = i;
-            exist = true;
-        }
-    }
-    if(exist)
-    {
-        return pos;
-    }
-    else
-    {
-        return -1;
-    }
-}
-int FindPosMaxSquareNumberInRow(int* a, int c)
-{
-    int max = FindFirstSquareNumberInRow(a, c);
-    int pos = 0;
-    bool exist = false;
-    for(int i = 0; i < c; i++)
-    {
-        if(isSquareNumber(a[i]) && a[i] >= max)
-        {
-            max = a[i];
-            pos = i;
-            exist = true;
-        }
-    }
-    if(exist)
-    {
-        return pos;
-    }
-    else
-    {
-        return -1;
-    }
-}
-
-int** CreateMatrix(int r, int c)
-{
-    int** a = new int* [r];
-    for(int i = 0; i < r; i++)
-    {
-        a[i] = new int[c];
-    }
-    return a;
 }
 void Swap(int& a, int& b)
 {
@@ -134,44 +38,92 @@ void Swap(int& a, int& b)
     a = b;
     b = temp;
 }
-void CheckAndSwapRow(int** a, int r, int c)
+void Input(int* a, int n)
 {
-    int posP = -1, posS = -1;
-    for(int i = 0; i < r; i++)
+    for(int i = 0; i < n; i++)
     {
-        posP = FindPosMaxPrimeInRow(a[i], c);
-        posS = FindPosMaxSquareNumberInRow(a[i], c);
-        cout << posP << " " << posS << " " << endl;
-        if(posP != -1 && posS != -1)
+        cin >> a[i];
+    }
+}
+void Output(int* a, int n)
+{
+    for(int i = 0; i < n; i++)
+    {
+        cout << a[i] << " ";
+    }
+}
+int CountPrime(int* a, int n)
+{
+    int count = 0;
+    for(int i = 0; i < n; i++)
+    {
+        if(isPrime(a[i]))
         {
-            Swap(a[i][posP], a[i][posS]);
+            count++;
         }
     }
+    return count;
+}
+int CountSquareNum(int* a, int n)
+{
+    int count = 0;
+    for(int i = 0; i < n; i++)
+    {
+        if(isSquareNumber(a[i]))
+        {
+            count++;
+        }
+    }
+    return count;
 }
 int main()
 {
-    int n, m;
+    int n;
     do
     {
         cin >> n;
-        if(n < 0 || n > 50)
+        if(n < 0 || n > 100)
         {
             cout << "Nhap sai. Moi nhap lai!";
         }
-    } while (n < 0 || n > 50);
+    } while (n < 0 || n > 100);
     
-    do
+    int* a = new int[n];
+    Input(a, n);
+    Output(a, n);
+    cout << endl;
+    int numP = CountPrime(a, n);
+    int numS = CountSquareNum(a, n);
+    cout << numP << " " << numS << endl;
+    int* p = new int[numP];
+    int* s = new int[numS];
+    int posP = 0, posS = 0;
+    for(int i = 0; i < n; i++)
     {
-        cin >> m;
-        if(m < 0 || m > 50)
+        if(isPrime(a[i]))
         {
-            cout << "Nhap sai. Moi nhap lai!";
+            p[posP++] = a[i];
+            a[i] = MAX;
         }
-    } while (m < 0 || m > 50);
-    
-    int** a = CreateMatrix(n, m);
-    Input(a, n, m);
-    Output(a, n, m);
-    CheckAndSwapRow(a, n, m);
-    Output(a, n, m);
+        if(isSquareNumber(a[i]))
+        {
+            s[posS++] = a[i];
+            a[i] = MAX;
+        }
+    }
+    for(int i = 0; i < posP; i++)
+    {
+        cout << p[i] << " ";
+    }
+    for(int i = 0; i < n; i++)
+    {
+        if(a[i] != MAX)
+        {
+            cout << a[i] << " ";
+        }
+    }
+    for(int i = 0; i < posS; i++)
+    {
+        cout << s[i] << " ";
+    }
 }
