@@ -1,5 +1,4 @@
-// C++ program for implementation of Ford Fulkerson
-// algorithm
+// C++ program for implementation of Ford Fulkerson algorithm
 #include <iostream>
 #include <limits.h>
 #include <queue>
